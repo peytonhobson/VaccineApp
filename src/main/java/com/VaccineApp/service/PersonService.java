@@ -32,12 +32,17 @@ public class PersonService {
         return personRepo.save(person);
     }
 
-    public Person findPersonByID(long id) throws Throwable {
+    public Person findPersonByID(int id) throws Throwable {
         return personRepo.findPersonById(id)
                 .orElseThrow(() -> new UserNotFoundException("User by id " + id + " was not found"));
     }
 
-    public void deletePerson(Long id) {
+    public Person findPersonByNAME(String name)  {
+        return personRepo.findPersonByName(name)
+                .orElseThrow(() -> new UserNotFoundException("User by id " + name + " was not found"));
+    }
+
+    public void deletePerson(int id) {
         personRepo.deletePersonById(id);
     }
 }

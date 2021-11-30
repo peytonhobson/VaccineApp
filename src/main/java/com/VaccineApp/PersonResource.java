@@ -26,8 +26,14 @@ public class PersonResource {
     }
 
     @GetMapping("/find/{id}")
-    public ResponseEntity<Person> getPersonById(@PathVariable("id") Long id) throws Throwable {
+    public ResponseEntity<Person> getPersonById(@PathVariable("id") int id) throws Throwable {
         Person person = personService.findPersonByID(id);
+        return new ResponseEntity<>(person, HttpStatus.OK);
+    }
+
+    @GetMapping("/findName/{name}")
+    public ResponseEntity<Person> getPersonByName(@PathVariable("name") String name) throws Throwable {
+        Person person = personService.findPersonByNAME(name);
         return new ResponseEntity<>(person, HttpStatus.OK);
     }
 
@@ -44,7 +50,7 @@ public class PersonResource {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deletePerson(@PathVariable("id") Long id) {
+    public ResponseEntity<?> deletePerson(@PathVariable("id") int id) {
         personService.deletePerson(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

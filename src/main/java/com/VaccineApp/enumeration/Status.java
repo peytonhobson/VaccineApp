@@ -2,7 +2,7 @@ package com.VaccineApp.enumeration;
 
 public enum Status {
     VACCINATED("VACCINATED"),
-    SERVER_DOWN("NOT_VACCINATED");
+    NOT_VACCINATED("NOT_VACCINATED");
 
     private final String status;
 

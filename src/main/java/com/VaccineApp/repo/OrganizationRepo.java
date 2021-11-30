@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface OrganizationRepo extends JpaRepository<Organization,Long> {
+public interface OrganizationRepo {
 
     void deleteOrganizationById(int id);
     Optional<Organization> findOrganizationById(int id);

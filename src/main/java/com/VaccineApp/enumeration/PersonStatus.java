@@ -18,5 +18,4 @@ public enum PersonStatus {
     public String getStatus() {
         return this.status;
     }
-
 }

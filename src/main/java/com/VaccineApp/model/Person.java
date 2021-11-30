@@ -8,7 +8,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Arrays;
 
-import com.VaccineApp.enumeration.Status;
+import com.VaccineApp.enumeration.PersonStatus;
 
 @Entity
 public class Person implements Serializable {
@@ -22,11 +22,11 @@ public class Person implements Serializable {
     private String phone;
     private String imageUrl;
     @Column(nullable = false)
-    private Status vaccineStatus;
+    private PersonStatus vaccineStatus;
     private String password;
     private static int currentId = 0; // Could change this to implement usernames
 
-    public Person(String name, String email, String phone, String imageUrl, Status vaccineStatus, String password)
+    public Person(String name, String email, String phone, String imageUrl, PersonStatus vaccineStatus, String password)
             throws NoSuchAlgorithmException {
         this.id = currentId;
         this.name = name;
@@ -80,11 +80,11 @@ public class Person implements Serializable {
         this.imageUrl = imageUrl;
     }
 
-    public Status getVaccineStatus() {
+    public PersonStatus getVaccineStatus() {
         return vaccineStatus;
     }
 
-    public void setVaccineStatus(Status vaccineStatus) {
+    public void setVaccineStatus(PersonStatus vaccineStatus) {
         this.vaccineStatus = vaccineStatus;
     }
 

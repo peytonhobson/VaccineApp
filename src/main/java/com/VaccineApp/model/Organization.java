@@ -8,7 +8,9 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Arrays;
 
-import com.VaccineApp.enumeration.Status;
+import com.VaccineApp.enumeration.OrganizationStatus;
+import com.VaccineApp.enumeration.PersonStatus;
+import com.VaccineApp.repo.OrganizationRepo;
 
 @Entity
 public class Organization implements Serializable {
@@ -21,11 +23,11 @@ public class Organization implements Serializable {
     private String email;
     private String phone;
     private String imageUrl;
-    private Status vaccineRequirement;
+    private OrganizationStatus vaccineRequirement;
     private String password;
     private static int currentId = 0;
 
-    public Organization(String name, String email, String phone, String imageUrl, Status vaccineRequirement, String password)
+    public Organization(String name, String email, String phone, String imageUrl, OrganizationStatus vaccineRequirement, String password)
             throws NoSuchAlgorithmException {
         this.id = currentId;
         this.name = name;
@@ -55,45 +57,85 @@ public class Organization implements Serializable {
         this.name = name;
     }
 
+    /**
+     * Getter function for email
+     * @return  Email as string
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * Setter for email
+     * @param email Email address of org
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     * Getter function for phone number
+     * @return  Phone number as string
+     */
     public String getPhone() {
         return phone;
     }
 
+    /**
+     * Setter function for phone number
+     * @param phone Phone number of org
+     */
     public void setPhone(String phone) {
         this.phone = phone;
     }
 
+    /**
+     * Getter function for imageUrl
+     * @return  Image URL as string
+     */
     public String getImageUrl() {
         return imageUrl;
     }
 
+    /**
+     * Setter function for imageUrl
+     * @param imageUrl  A URL for the image of the org
+     */
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
 
-    public Status getVaccineRequirement() {
+    /**
+     * Getter function for vaccineRequirements
+     * @return  Vaccine requirement as a status (defined in enum)
+     */
+    public OrganizationStatus getVaccineRequirement() {
         return vaccineRequirement;
     }
 
-    public void setVaccineRequirement(Status vaccineRequirement) {
+    /**
+     * Setter function for vaccine requirements
+     * @param vaccineRequirement    Vaccine requirement of organization
+     */
+    public void setVaccineRequirement(OrganizationStatus vaccineRequirement) {
         this.vaccineRequirement = vaccineRequirement;
     }
 
+    /**
+     * Getter function for user hashed password
+     * @return  password as string;
+     */
     public String getPassword() { return password; }
 
+    /**
+     * Setter function for password
+     * @param password Password for user
+     */
     public void setPassword(String password) { this.password = password; }
 
     /**
      * Algorithm for using sha-512 for hashing password.
-     * Code used from
+     * Code used from https://www.baeldung.com/java-password-hashing
      * @param password  input actual password
      * @return String as hashed password
      */
@@ -107,6 +149,11 @@ public class Organization implements Serializable {
         return Arrays.toString(hashedPassword);
     }
 
+    /**
+     * Regular toString() function that includes every
+     * class variable except for password
+     * @return  JSON string of class variables and values
+     */
     @Override
     public String toString() {
         return "Person{" +

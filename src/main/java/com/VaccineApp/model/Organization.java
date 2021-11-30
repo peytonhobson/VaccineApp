@@ -11,7 +11,7 @@ import java.util.Arrays;
 import com.VaccineApp.enumeration.Status;
 
 @Entity
-public class Person implements Serializable {
+public class Organization implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,24 +21,23 @@ public class Person implements Serializable {
     private String email;
     private String phone;
     private String imageUrl;
-    @Column(nullable = false)
-    private Status vaccineStatus;
+    private Status vaccineRequirement;
     private String password;
-    private static int currentId = 0; // Could change this to implement usernames
+    private static int currentId = 0;
 
-    public Person(String name, String email, String phone, String imageUrl, Status vaccineStatus, String password)
+    public Organization(String name, String email, String phone, String imageUrl, Status vaccineRequirement, String password)
             throws NoSuchAlgorithmException {
         this.id = currentId;
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.imageUrl = imageUrl;
-        this.vaccineStatus = vaccineStatus;
+        this.vaccineRequirement = vaccineRequirement;
         this.password = hashPassword(password);
         currentId++;
     }
 
-    public Person() {}
+    public Organization() {}
 
     public int getId() {
         return id;
@@ -80,12 +79,12 @@ public class Person implements Serializable {
         this.imageUrl = imageUrl;
     }
 
-    public Status getVaccineStatus() {
-        return vaccineStatus;
+    public Status getVaccineRequirement() {
+        return vaccineRequirement;
     }
 
-    public void setVaccineStatus(Status vaccineStatus) {
-        this.vaccineStatus = vaccineStatus;
+    public void setVaccineRequirement(Status vaccineRequirement) {
+        this.vaccineRequirement = vaccineRequirement;
     }
 
     public String getPassword() { return password; }
@@ -93,10 +92,10 @@ public class Person implements Serializable {
     public void setPassword(String password) { this.password = password; }
 
     /**
-     * Algorithm for using sha-512 for hasing password.
+     * Algorithm for using sha-512 for hashing password.
      * Code used from
-     * @param password
-     * @return
+     * @param password  input actual password
+     * @return String as hashed password
      */
     public String hashPassword(String password) throws NoSuchAlgorithmException {
         SecureRandom random = new SecureRandom();
@@ -116,7 +115,7 @@ public class Person implements Serializable {
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
-                ", vaccineStatus=" + vaccineStatus +
+                ", vaccineStatus=" + vaccineRequirement +
                 '}';
     }
 }

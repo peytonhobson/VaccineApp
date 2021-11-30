@@ -1,30 +1,13 @@
-import javax.persistence.*;
-import java.io.Serializable;
+package com.VaccineApp.repo;
 
-@Entity
-public class Person implements Serializable {
+import com.VaccineApp.model.Person;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, updatable = false)
-    private Long id;
-    private String name;
-    private String email;
-    private String jobTitle;
-    private String phone;
-    private String imageUrl;
-    @Column(nullable = false, updatable = false)
-    private String employeeCode;
+import java.util.Optional;
 
-    public Employee(Long id, String name, String email, String jobTitle, String phone, String imageUrl, String employeeCode) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.jobTitle = jobTitle;
-        this.phone = phone;
-        this.imageUrl = imageUrl;
-        this.employeeCode = employeeCode;
-    }
+public interface PersonRepo extends JpaRepository<Person,Long> {
 
-    public Person
+    void deletePersonById(Long id);
+    Optional<Person> findPersonById(long id);
+    Optional<Person> findPersonByName(String name);
 }

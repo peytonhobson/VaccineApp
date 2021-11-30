@@ -24,20 +24,20 @@ public class PersonService {
         return personRepo.save(person);
     }
 
-    public List<Person> findAllEmployees() {
+    public List<Person> findAllPersons() {
         return personRepo.findAll();
     }
 
-    public Person updateEmployee(Person employee) {
-        return personRepo.save(employee);
+    public Person updatePerson(Person person) {
+        return personRepo.save(person);
     }
 
-    public Person findEmployeeByID(long id) throws Throwable {
+    public Person findPersonByID(long id) throws Throwable {
         return personRepo.findPersonById(id)
                 .orElseThrow(() -> new UserNotFoundException("User by id " + id + " was not found"));
     }
 
-    public void deleteEmployee(Long id) {
+    public void deletePerson(Long id) {
         personRepo.deletePersonById(id);
     }
 }

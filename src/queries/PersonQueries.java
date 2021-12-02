@@ -32,7 +32,6 @@ public class PersonQueries {
     private Connection connection;
     private PreparedStatement selectAllPersons;
     private PreparedStatement selectPersonByUsername;
-    private PreparedStatement selectPersonByType;
     private PreparedStatement selectPersonByName;
     private PreparedStatement insertNewPerson;
     private PreparedStatement deletePersonByUsername;
@@ -60,8 +59,8 @@ public class PersonQueries {
             insertNewPerson = connection.prepareStatement(
                     "INSERT INTO Persons " +
                             "(username, name, email, phone, " +
-                            "profilePic, vaccine, password, test) " +
-                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                            "profilePic, vaccine, password, test, vaccineCard, id) " +
+                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
             deletePersonByUsername = connection.prepareStatement(
                     "DELETE FROM Persons WHERE username LIKE ?");
@@ -69,7 +68,7 @@ public class PersonQueries {
             updatePersonByUsername = connection.prepareStatement(
                     "UPDATE Organizations SET name = ?, email = ?," +
                             "phone = ?, profilePic = ?, vaccine = ?, password = ?," +
-                            "test = ? WHERE username LIKE ?");
+                            "test = ?, vaccineCard = ?, id = ? WHERE username LIKE ?");
         }
         catch (SQLException sqlException) {
             sqlException.printStackTrace();
@@ -104,7 +103,9 @@ public class PersonQueries {
                     resultSet.getString("profilePic"),
                     resultSet.getBoolean("vaccine"),
                     resultSet.getString("password"),
-                    resultSet.getDate("test")
+                    resultSet.getDate("test"),
+                    resultSet.getString("vaccineCard"),
+                    resultSet.getString("id")
             );
         }
         catch (SQLException | NoSuchAlgorithmException sqlException) {
@@ -137,7 +138,9 @@ public class PersonQueries {
                         resultSet.getString("profilePic"),
                         resultSet.getBoolean("vaccine"),
                         resultSet.getString("password"),
-                        resultSet.getDate("test")
+                        resultSet.getDate("test"),
+                        resultSet.getString("vaccineCard"),
+                        resultSet.getString("id")
                 ));
             }
 
@@ -151,7 +154,7 @@ public class PersonQueries {
     }
 
     public int addPerson(String username, String name, String email, String phone, String profilePic,
-                               String password, boolean vaccine, boolean test) {
+                               String password, boolean vaccine, boolean test, String vaccineCard, String id) {
 
         try {
             // set parameters
@@ -163,6 +166,8 @@ public class PersonQueries {
             insertNewPerson.setBoolean(6, vaccine);
             insertNewPerson.setString(7, User.hashPassword(password));
             insertNewPerson.setBoolean(8, test);
+            insertNewPerson.setString(9, vaccineCard);
+            insertNewPerson.setString(10, id);
 
             return insertNewPerson.executeUpdate();
         }
@@ -188,7 +193,7 @@ public class PersonQueries {
     // TODO: When calling this function, first a get query will need to be called to get the original person
     //  to fill in any empty parameters.
     public void updateOrganization(String username, String name, String email, String phone, String profilePic,
-                                   String password, boolean vaccine, boolean test) {
+                                   String password, boolean vaccine, boolean test, String vaccineCard, String id) {
         try {
             updatePersonByUsername.setString(1, name);
             updatePersonByUsername.setString(2, email);
@@ -197,7 +202,10 @@ public class PersonQueries {
             updatePersonByUsername.setBoolean(5,vaccine);
             updatePersonByUsername.setString(6, User.hashPassword(password));
             updatePersonByUsername.setBoolean(7, test);
-            updatePersonByUsername.setString(8, username);
+            updatePersonByUsername.setString(8, vaccineCard);
+            updatePersonByUsername.setString(9, id);
+            updatePersonByUsername.setString(10, username);
+
 
             updatePersonByUsername.executeQuery();
         }

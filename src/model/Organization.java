@@ -1,7 +1,6 @@
 package model;
 
 import java.security.NoSuchAlgorithmException;
-import enumeration.OrganizationType;
 
 /**
  * Class that represents organization as an entity in
